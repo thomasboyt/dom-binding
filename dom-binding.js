@@ -46,9 +46,24 @@ define([], function() {
   }
 
   DomBindable.prototype.bind = function(propName, selector, options) {
-    var elements = document.querySelectorAll(selector);
+    var elements;
+    var newBindings = []
 
-    var newBindings = [];
+    // selector can be a dom node, a nodeList, a jQuery selector result, or a selector string
+    if (typeof selector === 'object') {
+      if (selector.jquery) {
+        elements = selector.get();
+      }
+      else {
+        if (!selector.length) 
+          elements = [selector];
+        else
+          elements = selector;
+      }
+    }
+    else {
+      elements = document.querySelectorAll(selector);
+    }
 
     for (var i=0; i<elements.length; i++) {
       var binding = {
