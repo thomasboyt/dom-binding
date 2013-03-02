@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>DOM Binding Test</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script data-main='dom-binding-test.js' src="lib/require.js"></script>
+
+    <style>
+      .red {color:red;}
+      .purple {color:purple;}
+    </style>
+  </head>
+  <body>
+    <p>
+      The bikeshed is <span id="bindable">(waiting for bind...)</span>
+    </p>
+
+    <button id="change-bind">Change Bikeshed's Bind</button>
+
+    <p>
+      These two list items should both have the same color as the bikeshed:
+      <ul>
+        <li class='multi-bind'>One</li>
+        <li class='multi-bind'>Two</li>
+      </ul>
+    </p>
+  </body>
+</html>
