@@ -48,3 +48,7 @@ bikeShed.bind("color", "span#crayola-color", {transform: function(value) {
   return value; //default
 }});
 ```
+
+## Testing
+
+Host this on a local server (hint: `python -m SimpleHTTPServer dom-binding/`) and navigate your browser to `localhost:port/tests/`).

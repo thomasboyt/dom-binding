@@ -9,7 +9,7 @@ define([], function() {
         {
           "element": <dom element node>,
           "type": "content" // (or class...),
-          "transform" function(value) {return transformedValue}
+          "transform": function(value) {return transformedValue}
         },
         ...
       ]
