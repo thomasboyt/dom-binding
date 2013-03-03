@@ -22,32 +22,32 @@ define([], function() {
   var DomBindable = function(properties) {
     this._properties = {};
 
-    for (name in properties) {
+    for (var name in properties) {
       this.set(name, properties[name]);
     }
-  }
+  };
 
   DomBindable.prototype.get = function(key) {
     return this._properties[key].content;
-  }
+  };
 
   DomBindable.prototype.set = function(key, value) {
     if (!this._properties[key]) {
       this._properties[key] = {
         content: value,
         bindings: []
-      }
+      };
     }
     else {
       var oldContent = this._properties[key].content;
       this._properties[key].content = value;
       this._domUpdateAll(this._properties[key], oldContent);
     }
-  }
+  };
 
   DomBindable.prototype.bind = function(propName, selector, options) {
     var elements;
-    var newBindings = []
+    var newBindings = [];
 
     // selector can be a dom node, a nodeList, a jQuery selector result, or a selector string
     if (typeof selector === 'object') {
@@ -65,16 +65,18 @@ define([], function() {
       elements = document.querySelectorAll(selector);
     }
 
+    var transformDefaultFn = function(value) {
+      return value;
+    };
+
     for (var i=0; i<elements.length; i++) {
       var binding = {
         element: elements[i],
         type: 'content',
-        transform: function(value) {
-          return value;
-        }
-      }
+        transform: transformDefaultFn
+      };
 
-      for (key in options) {
+      for (var key in options) {
         binding[key] = options[key];
       }
 
@@ -84,8 +86,8 @@ define([], function() {
 
     newBindings.forEach(function(binding) {
       this._updateBinding(this._properties[propName], binding);
-    }.bind(this))
-  }
+    }.bind(this));
+  };
 
   DomBindable.prototype._updateBinding = function(property, binding, prevContent) {
     var content = binding.transform(property.content);
@@ -97,13 +99,13 @@ define([], function() {
       binding.element.classList.remove(oldContent);
       binding.element.classList.add(content);
     }
-  }
+  };
 
   DomBindable.prototype._domUpdateAll = function(property, prevContent) {
     property.bindings.forEach(function(binding) {
       this._updateBinding(property, binding, prevContent);
     }.bind(this));
-  }
+  };
 
   return DomBindable;
 });

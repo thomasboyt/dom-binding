@@ -4,7 +4,7 @@ require(["../dom-binding.js"], function (DomBindable) {
   test("Constructor Test", function() {
     var bikeShed = new DomBindable({
       color: "purple"
-    })
+    });
     equal(bikeShed.get("color"), "purple", "The constructor allows properties to be set.");
   });
 
@@ -12,7 +12,7 @@ require(["../dom-binding.js"], function (DomBindable) {
     var bikeShed = new DomBindable();
     bikeShed.set("color", "purple");
     equal(bikeShed.get("color"), "purple", "Properties can be set and retrieved on the model.");
-  })
+  });
 
   module("Single Binding");
 
@@ -24,7 +24,7 @@ require(["../dom-binding.js"], function (DomBindable) {
 
     bikeShed.set("color", "red");
     equal(document.querySelector(selectorToAssert).innerHTML, "red", "The content of #bindable was updated to equal red");
-  }
+  };
 
   test("Content via selector string", function() {
     selectorTest("#bindable", "#bindable");
@@ -52,10 +52,10 @@ require(["../dom-binding.js"], function (DomBindable) {
     }
 
     bikeShed.set("color", "red");
-    for (var i=0; i<els.length; i++) {
+    for (i=0; i<els.length; i++) {
       equal(els[i].innerHTML, "red", "The content of element #" + i + " was updated to equal red");
     }
-  }
+  };
   test("Multiple contents via selector string", function() {
     multiTest("li.multi-bind", "li.multi-bind");
   });
@@ -72,10 +72,10 @@ require(["../dom-binding.js"], function (DomBindable) {
     bikeShed.set("color", "purple");
 
     bikeShed.bind("color", "#bindable", {type: "class"});
-    ok(document.querySelector("#bindable").classList.contains("purple"), "#bindable has the class 'purple'")
+    ok(document.querySelector("#bindable").classList.contains("purple"), "#bindable has the class 'purple'");
 
     bikeShed.set("color", "red");
-    ok(!document.querySelector("#bindable").classList.contains("purple") && document.querySelector("#bindable").classList.contains("red"), "#bindable has the class 'red' and not 'purple'")
+    ok(!document.querySelector("#bindable").classList.contains("purple") && document.querySelector("#bindable").classList.contains("red"), "#bindable has the class 'red' and not 'purple'");
   });
 
   module("Transform binding");
@@ -91,13 +91,13 @@ require(["../dom-binding.js"], function (DomBindable) {
     var bikeShed = new DomBindable({color: "purple"});
     bikeShed.bind("color", "#bindable", {type: "content", transform: transformFn});
     
-    equal(document.querySelector("#bindable").innerHTML, "violet", "'purple' was transformed to 'violet'")
+    equal(document.querySelector("#bindable").innerHTML, "violet", "'purple' was transformed to 'violet'");
 
     bikeShed.set("color", "pink");
-    equal(document.querySelector("#bindable").innerHTML, "fuschia", "'pink' was transformed to 'fuschia'")
+    equal(document.querySelector("#bindable").innerHTML, "fuschia", "'pink' was transformed to 'fuschia'");
 
     bikeShed.set("color", "red");    
-    equal(document.querySelector("#bindable").innerHTML, "red", "'red' was not transformed")
+    equal(document.querySelector("#bindable").innerHTML, "red", "'red' was not transformed");
   });
 
   test("Transforming classes", function() {
@@ -111,6 +111,6 @@ require(["../dom-binding.js"], function (DomBindable) {
 
     bikeShed.set("color", "red");
     ok(document.querySelector("#bindable").classList.contains("red"), "#bindable has the 'red' class");
-  })
+  });
 
-})
+});
